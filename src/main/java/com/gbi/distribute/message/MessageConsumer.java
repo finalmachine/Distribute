@@ -43,12 +43,10 @@ public class MessageConsumer extends MessageBase implements Runnable, Consumer {
 			byte[] body) throws IOException {
 		GetResponse response = channel.basicGet(queueName, false);
 		if (response != null) {
-			System.out.println(SerializationUtils.deserialize(response.getBody()));
+			String message = SerializationUtils.deserialize(body);
+			System.out.println(consumerTag + ">" + message + " received.");
+			channel.basicAck(envelope.getDeliveryTag(), false);
 		}
-		
-		String message = SerializationUtils.deserialize(body);
-		System.out.println(consumerTag + ">" + message + " received.");
-		channel.basicAck(envelope.getDeliveryTag(), false);
 	}
 
 	@Override
