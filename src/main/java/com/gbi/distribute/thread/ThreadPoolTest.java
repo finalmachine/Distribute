@@ -18,13 +18,26 @@ public class ThreadPoolTest {
 			}
 		}
 	}
-
-	public static void main(String[] args) {
+	
+	public static void FixedThreadPoolTest() {
 		ExecutorService threadPool = Executors.newFixedThreadPool(3);
 		for (int i = 0; i < 20; ++i) {
 			threadPool.execute(new TestRun());
 			System.out.println("-----------");
 		}
 		threadPool.shutdown();
+	}
+	
+	public static void CachedThreadPoolTest() {
+		ExecutorService threadPool = Executors.newCachedThreadPool();
+		for (int i = 0; i < 20; ++i) {
+			threadPool.execute(new TestRun());
+			System.out.println("-----------");
+		}
+		threadPool.shutdown();
+	}
+
+	public static void main(String[] args) {
+		CachedThreadPoolTest();
 	}
 }
